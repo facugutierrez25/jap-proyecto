@@ -17,14 +17,25 @@
 </head>
 
 <body>
-  <main class="mt-5">
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
+  <main class="container">
+    <div class="text-center">
+      <img class="img-fluid mx-auto d-block rounded" src="img/login.png" alt="logo-login" id="img-login">
+      <h1 class="h3 mb-3 fw-normal" id="title-login">Inicio de sesión</h1>
     </div>
+    <form class="text-center" id="form-login">
+      <div class="form-group" id="email-login">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+      </div>
+      <div class="form-group" id="password-login">
+        <label for="email">Contraseña</label>
+        <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña">
+      </div>
+      <br>
+      <button type="submit" class="btn btn-lg btn-primary">Ingresar</button>
+    </form>
   </main>
-  <footer class="text-muted">
+    <footer class="text-muted">
     <div class="container">
       <p class="float-end">
         <a href="#">Volver arriba</a>

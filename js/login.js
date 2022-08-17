@@ -10,12 +10,6 @@ document.addEventListener("DOMContentLoaded", function() {
     if(emailImput.length == 0 || passwordImput.length == 0) {
       e.preventDefault();
       document.getElementById("formError").innerHTML =('<span>Todos los campos son obligatorios</span>');
-    
-
-   
-    // if (passwordImput.length == 0) {
-    //   e.preventDefault();
-    //   showAlertError("Ingrese una contraseña válida")
     } else{
     this.submit();
     window.location.href = 'index.html';

@@ -17,8 +17,9 @@
 </head>
 
 <body>
+
   <main class="container">
-    <div class="text-center">
+    <div class="text-center mx-5">
       <img class="img-fluid mx-auto d-block rounded" src="img/login.png" alt="logo-login" id="img-login">
       <h1 class="h3 mb-3 fw-normal" id="title-login">Inicio de sesión</h1>
     </div>
@@ -31,11 +32,32 @@
         <label for="email">Contraseña</label>
         <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña">
       </div>
+      <span id="formError" style="color: #dc3545"></span>
       <br>
-      <input type="submit" class="btn btn-lg btn-primary" name="Ingresar"></input>
+      <input type="submit" class="btn btn-lg btn-primary" value="Ingresar"></input>
+      <hr>
+      <script src="https://accounts.google.com/gsi/client" async defer></script>
+      <script>
+        function handleCredentialResponse(response) {
+          console.log("Encoded JWT ID token: " + response.credential);
+        }
+        window.onload = function () {
+          google.accounts.id.initialize({
+            client_id: "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",
+            callback: handleCredentialResponse
+          });
+          google.accounts.id.renderButton(
+            document.getElementById("buttonDiv"),
+            { theme: "outline", size: "large"}  
+          );
+          google.accounts.id.prompt();
+        }
+      </script>
+      <div id="buttonDiv"></div> 
+
     </form>
-    <span id="formError" style="color: red; font-weight: bold"></span>
   </main>
+
     <footer class="text-muted">
     <div class="container">
       <p class="float-end">

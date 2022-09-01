@@ -29,11 +29,12 @@ function showProductsList(){
             `
         }
 
+        document.getElementById("titulo-cat").innerHTML = `Verás aquí todos los productos de la categoría ${localStorage.getItem("catName")}`
         document.getElementById("prod-list-container").innerHTML = htmlContentToAppend;
 }
 
 document.addEventListener("DOMContentLoaded", function(e){
-    getJSONData(`${PRODUCTS_URL}101.json`).then(function(resultObj){
+    getJSONData(`${PRODUCTS_URL}${localStorage.getItem("catID")}.json`).then(function(resultObj){
         if (resultObj.status === "ok"){
             currentProductsArray = resultObj.data.products
             showProductsList()

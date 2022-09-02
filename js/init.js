@@ -39,3 +39,12 @@ let getJSONData = function(url){
         return result;
     });
 }
+
+document.addEventListener("DOMContentLoaded", function(){
+  if (localStorage.getItem("username") === "") {
+    window.location.assign(login.html);
+  } else {
+    console.log(localStorage.getItem("username"));
+    document.getElementById("username-container").innerHTML = localStorage.getItem("username");
+  }
+});

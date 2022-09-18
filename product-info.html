@@ -10,6 +10,7 @@
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -31,6 +32,7 @@
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
           <li class="nav-item">
+            <p id="username-container" class="navbar-text"></p>
           </li>
         </ul>
       </div>
@@ -38,8 +40,54 @@
   </nav>
   <main>
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+      <br>
+      <h2 id="prodname" class="text-muted"></h2>
+      <hr>
+      <div class="col">
+        <div>
+          <h5 class="fw-bold">Precio</h5>
+          <p id="prodprice"></p>
+        </div>
+        <div>
+          <h5 class="mb-1 fw-bold">Descripción</h5>
+          <p id="proddescription"></p>
+        </div>
+        <div>
+          <h5 class="mb-1 fw-bold">Categoría</h5>
+          <p id="prodcategory"></p>
+        </div>
+        <div>
+          <h5 class="mb-1 fw-bold">Cantidad de vendidos</h5>
+          <p id="soldCount"></p>
+        </div>
+        <div>
+          <h5 class="mb-1 fw-bold">Imágenes ilustrativas</h5>
+          <div id="img-list" class="row"></div>
+        </div>
+      </div>
+      <br>
+      <div>
+        <h5>Comentarios</h5>
+        <div class="row">
+          <div class="list-group" id="comments-list-container">
+          </div>
+        </div>  
+      </div>
+      <hr>
+      <div>
+        <h5>Comentar</h5>
+        <form action="" id="form-comment">
+          <div>
+            <label for="opinion" class="form-label">Tu opinión:</label><br>
+            <textarea name="opinion" id="opinion" cols="50"></textarea>
+          </div>
+          <div>
+            <label for="puntuacion" class="form-label">Tu puntuación:</label><br>
+            <input type="number" name="puntuacion" id="puntuacion" min="0" max="5">
+          </div>
+          <br>
+          <button class="btn btn-dark btn-block" id="submit-comment-btn">Enviar</button>
+        </form>
       </div>
     </div>
   </main>

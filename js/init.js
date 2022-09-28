@@ -45,6 +45,25 @@ document.addEventListener("DOMContentLoaded", function(){
     window.location.assign(login.html);
   } else {
     console.log(localStorage.getItem("username"));
-    document.getElementById("username-container").innerHTML = localStorage.getItem("username");
+    document.getElementById("username-container").innerHTML =`
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        ${localStorage.getItem("username")}
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
+        <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
+        <li id="cerrarsesion"><a class="dropdown-item" href="login.html">Cerrar sesión</a></li>
+      </ul>
+    </div>
+    `;
   }
+
+  document.getElementById("cerrarsesion").addEventListener("click", function(){
+    localStorage.removeItem("username");
+  });
+  
 });
+
+
+

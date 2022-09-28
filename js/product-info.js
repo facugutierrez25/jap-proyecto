@@ -5,6 +5,12 @@ const CATEGORY_CONTAINER = document.getElementById("prodcategory");
 const SOLD_COUNT_CONTAINER = document.getElementById("soldCount");
 const IMG_LIST_CONTAINER = document.getElementById("img-list");
 const COMMENTS_CONTAINER = document.getElementById("comments-list-container");
+const RELATED_PRODUCTS_CONTAINER = document.getElementById("relacionados-container");
+
+function setProdID(id) {
+    localStorage.setItem("prodID", id);
+    window.location = "product-info.html"
+}
 
 document.addEventListener("DOMContentLoaded", function(e){
     getJSONData(`${PRODUCT_INFO_URL}${localStorage.getItem("prodID")}.json`).then(function(resultObj){
@@ -27,6 +33,25 @@ document.addEventListener("DOMContentLoaded", function(e){
             
             IMG_LIST_CONTAINER.innerHTML = htmlContentToAppend;
 
+            let productosRelacionados = resultObj.data.relatedProducts;
+            let htmlProductosRelacionados = "";
+            
+            for (let producto of productosRelacionados){
+                htmlProductosRelacionados += `
+                <div onclick="setProdID(${producto.id})" class="col-4 card cursor-active" style="padding:10px; margin:10px">
+                    <div class="div-img">
+                    <img class="bd-placeholder-img card-img-top rounded" src="${producto.image}" alt="${producto.name}">
+                    </div>
+                    <div class="card-body">
+                        <strong class="card-title">${producto.name}</strong>
+                    </div>
+                    </div>
+                </div>
+                `
+            }
+
+            RELATED_PRODUCTS_CONTAINER.innerHTML = htmlProductosRelacionados;
+
         }
     });
 
@@ -46,7 +71,6 @@ document.addEventListener("DOMContentLoaded", function(e){
                 <div class="list-group-item">
                     <div class="row">
                         <p class="col"><strong>${comment.user}</strong> - ${comment.dateTime} - Score: ${rate}</p>
-                        <div id="${i}"></div>
                     </div>
                     <div>
                         <p>${comment.description}</p>
@@ -88,5 +112,6 @@ document.addEventListener("DOMContentLoaded", function(e){
         
         COMMENTS_CONTAINER.innerHTML = htmlContentToAppend;
     });
+
 
 });

@@ -203,3 +203,10 @@ a.custom-card:hover {
   justify-content: center;
   align-items: center;
 }
+
+#carouselImagenes {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+}

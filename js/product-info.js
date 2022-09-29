@@ -27,11 +27,14 @@ document.addEventListener("DOMContentLoaded", function(e){
 
             for (let img of imagenes){
                 htmlContentToAppend += `
-                <img src="${img}" class="col-3"></img>
+                <div class="carousel-item">
+                    <img src="${img}" class="d-block w-100">
+                </div>
                 `
             }
             
             IMG_LIST_CONTAINER.innerHTML = htmlContentToAppend;
+            document.querySelector(".carousel-item").className = "carousel-item active";
 
             let productosRelacionados = resultObj.data.relatedProducts;
             let htmlProductosRelacionados = "";

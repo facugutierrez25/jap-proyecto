@@ -17,6 +17,7 @@ function validForm(e) {
 function setUsername() {
   let username = document.getElementById('email').value;
   localStorage.setItem("username", username);
+  localStorage.setItem("userID", 25801);
   window.location = "index.html";
 }
 
@@ -24,3 +25,5 @@ document.addEventListener("DOMContentLoaded", function() {
   document.getElementById("form-login").addEventListener('submit', setUsername);
   document.getElementById("form-login").addEventListener('submit', validForm);
   });
+
+localStorage.setItem("arrayProdCart","[]");

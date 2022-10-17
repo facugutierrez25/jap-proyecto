@@ -12,9 +12,9 @@ function setProdID(id) {
     window.location = "product-info.html"
 }
 
-document.addEventListener("DOMContentLoaded", function(e){
-    getJSONData(`${PRODUCT_INFO_URL}${localStorage.getItem("prodID")}.json`).then(function(resultObj){
-        if (resultObj.status === "ok"){
+document.addEventListener("DOMContentLoaded", function (e) {
+    getJSONData(`${PRODUCT_INFO_URL}${localStorage.getItem("prodID")}.json`).then(function (resultObj) {
+        if (resultObj.status === "ok") {
             console.log(resultObj.data);
             NAME_CONTAINER.innerHTML = `${resultObj.data.name}`;
             PRICE_CONTAINER.innerHTML = `${resultObj.data.currency} ${resultObj.data.cost}`;
@@ -25,21 +25,30 @@ document.addEventListener("DOMContentLoaded", function(e){
             let imagenes = resultObj.data.images
             let htmlContentToAppend = "";
 
-            for (let img of imagenes){
+            document.getElementById("btncomprar").addEventListener("click", function (e) {
+                let prodInfoCart = [imagenes[0], resultObj.data.name, resultObj.data.currency, resultObj.data.cost];
+                let arrayProdCart = JSON.parse(localStorage.getItem("arrayProdCart"));
+                arrayProdCart.push(prodInfoCart);
+                let infoCartJSON = JSON.stringify(arrayProdCart);
+                localStorage.setItem("arrayProdCart", infoCartJSON);
+                console.log(localStorage.getItem("arrayProdCart"))
+            })
+
+            for (let img of imagenes) {
                 htmlContentToAppend += `
                 <div class="carousel-item">
                     <img src="${img}" class="d-block w-100">
                 </div>
                 `
             }
-            
+
             IMG_LIST_CONTAINER.innerHTML = htmlContentToAppend;
             document.querySelector(".carousel-item").className = "carousel-item active";
 
             let productosRelacionados = resultObj.data.relatedProducts;
             let htmlProductosRelacionados = "";
-            
-            for (let producto of productosRelacionados){
+
+            for (let producto of productosRelacionados) {
                 htmlProductosRelacionados += `
                 <div onclick="setProdID(${producto.id})" class="col-4 card cursor-active" style="padding:10px; margin:10px">
                     <div class="div-img">
@@ -58,17 +67,17 @@ document.addEventListener("DOMContentLoaded", function(e){
         }
     });
 
-    getJSONData(`${PRODUCT_INFO_COMMENTS_URL}${localStorage.getItem("prodID")}.json`).then(function(resultObj){
-        if (resultObj.status === "ok"){
+    getJSONData(`${PRODUCT_INFO_COMMENTS_URL}${localStorage.getItem("prodID")}.json`).then(function (resultObj) {
+        if (resultObj.status === "ok") {
             console.log(resultObj.data);
 
             htmlContentToAppend = "";
             let comments = resultObj.data;
-            for(let i = 0; i < comments.length; i++){
+            for (let i = 0; i < comments.length; i++) {
                 let comment = comments[i];
                 let estrellaChecked = `<span class="fa fa-star checked"></span>`;
                 let estrellaNoChecked = `<span class="fa fa-star"></span>`;
-                let rate = estrellaChecked.repeat(comment.score) + estrellaNoChecked.repeat(5-comment.score);
+                let rate = estrellaChecked.repeat(comment.score) + estrellaNoChecked.repeat(5 - comment.score);
                 console.log(comment);
                 htmlContentToAppend += `
                 <div class="list-group-item">
@@ -80,13 +89,13 @@ document.addEventListener("DOMContentLoaded", function(e){
                     </div>
                 </div>
                 `
-            COMMENTS_CONTAINER.innerHTML = htmlContentToAppend;
+                COMMENTS_CONTAINER.innerHTML = htmlContentToAppend;
             }
 
         }
     });
 
-    document.getElementById("submit-comment-btn").addEventListener("click", function(event){
+    document.getElementById("submit-comment-btn").addEventListener("click", function (event) {
 
         event.preventDefault();
         localStorage.setItem("opinion", document.getElementById("opinion").value);
@@ -94,10 +103,10 @@ document.addEventListener("DOMContentLoaded", function(e){
         let user = localStorage.getItem("username");
         let score = localStorage.getItem("puntuacion");
         var date = new Date();
-        var current_date = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+ date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+ date.getSeconds();
+        var current_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
         let estrellaChecked = `<span class="fa fa-star checked"></span>`;
         let estrellaNoChecked = `<span class="fa fa-star"></span>`;
-        let rate = estrellaChecked.repeat(score) + estrellaNoChecked.repeat(5-score);
+        let rate = estrellaChecked.repeat(score) + estrellaNoChecked.repeat(5 - score);
 
 
         htmlContentToAppend += `
@@ -112,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function(e){
         `
         document.getElementById("opinion").value = "";
         document.getElementById("puntuacion").value = "";
-        
+
         COMMENTS_CONTAINER.innerHTML = htmlContentToAppend;
     });
 

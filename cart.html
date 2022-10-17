@@ -37,9 +37,55 @@
   </nav>
   <main>
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+      <div class="text-center p-4">
+        <h1>Carrito de compras</h1>
       </div>
+      <div>
+        <h3>Articulos a comprar</h3>
+      </div>
+      <div>
+        <table class="table" id="productstable">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Costo</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody id="productstablebody">
+          </tbody>
+        </table>
+      </div>
+      <hr><br>
+      <div id="envio">
+        <h3>Tipo de envío</h3>
+        <form action="" id="formenvio">
+          <input type="radio" nameG="envio" id="enviopremium" class="form-check-input">
+          <label class="form-check-label">Premium 2 a 5 días (15%)</label><br>
+          <input type="radio" name="envio" id="envioexpress" class="form-check-input">
+          <label class="form-check-label">Express 5 a 8 días (7%)</label><br>
+          <input type="radio" name="envio" id="enviostandard" class="form-check-input">
+          <label class="form-check-label">Standard 12 a 15 días (5%)</label><br>
+        </form><br>
+        <h3>Dirección de envío</h3>
+        <form class="row row-cols-lg-2 g-3 align-items-center" action="" id="formdireccion">
+          <div class="col-5">
+            <label for="calle" class="form-label">Calle</label><br>
+            <input type="text" name="calle" id="inputcalle" class="form-control">
+          </div>
+          <div class="col-4">
+            <label for="numero" class="form-label">Número</label><br>
+            <input type="text" name="numero" id="inputnumero" class="form-control">
+          </div>
+          <div class="col-5">
+            <label for="esquina" class="form-label">Esquina</label><br>
+            <input type="text" name="esquina" id="inputcalle" class="form-control">
+          </div>
+        </form>
+      </div>
+      <hr>
     </div>
   </main>
   <footer class="text-muted">

@@ -210,3 +210,7 @@ a.custom-card:hover {
   margin-right: auto;
   width: 40%;
 }
+
+#inputcantidad{
+  width: 5em!important;
+}

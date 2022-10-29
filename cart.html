@@ -36,6 +36,7 @@
     </div>
   </nav>
   <main>
+    <div id="liveAlertPlaceholder"></div>
     <div class="container">
       <div class="text-center p-4">
         <h1>Carrito de compras</h1>
@@ -52,40 +53,162 @@
               <th scope="col">Costo</th>
               <th scope="col">Cantidad</th>
               <th scope="col">Subtotal</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody id="productstablebody">
           </tbody>
         </table>
       </div>
-      <hr><br>
-      <div id="envio">
+
+      <hr>
+
+      <form id="envio" novalidate>
         <h3>Tipo de envío</h3>
-        <form action="" id="formenvio">
-          <input type="radio" nameG="envio" id="enviopremium" class="form-check-input">
-          <label class="form-check-label">Premium 2 a 5 días (15%)</label><br>
-          <input type="radio" name="envio" id="envioexpress" class="form-check-input">
-          <label class="form-check-label">Express 5 a 8 días (7%)</label><br>
-          <input type="radio" name="envio" id="enviostandard" class="form-check-input">
-          <label class="form-check-label">Standard 12 a 15 días (5%)</label><br>
-        </form><br>
+        <div action="" id="formenvio">
+          <input type="radio" name="envio" id="enviopremium" class="form-check-input envio" value=0.15
+            onclick="sumarEnvio()" aria-describedby="invalidEnvioFeedback" required>
+          <label for="enviopremium" class="form-check-label">Premium 2 a 5 días (15%)</label><br>
+          <input type="radio" name="envio" id="envioexpress" class="form-check-input envio" value=0.07
+            onclick="sumarEnvio()" aria-describedby="invalidEnvioFeedback" required>
+          <label for="envioexpress" class="form-check-label">Express 5 a 8 días (7%)</label><br>
+          <input type="radio" name="envio" id="enviostandard" class="form-check-input envio" value=0.05
+            onclick="sumarEnvio()" aria-describedby="invalidEnvioFeedback" required>
+          <label for="enviostandard" class="form-check-label">Standard 12 a 15 días (5%)</label><br>
+          <div id="invalidEnvioFeedback" class="invalid-feedback">
+            Debes seleccionar un tipo de envío
+          </div>
+        </div><br>
         <h3>Dirección de envío</h3>
-        <form class="row row-cols-lg-2 g-3 align-items-center" action="" id="formdireccion">
+        <div class="row row-cols-lg-2 g-3 align-items-center" action="" id="formdireccion">
           <div class="col-5">
-            <label for="calle" class="form-label">Calle</label><br>
-            <input type="text" name="calle" id="inputcalle" class="form-control">
+            <label for="inputcalle" class="form-label">Calle</label><br>
+            <input type="text" name="calle" id="inputcalle" class="form-control validationtext"
+              aria-describedby="validationServer03Feedback" required>
+            <div id="validationServer03Feedback" class="invalid-feedback">
+              Ingrese una calle
+            </div>
           </div>
           <div class="col-4">
-            <label for="numero" class="form-label">Número</label><br>
-            <input type="text" name="numero" id="inputnumero" class="form-control">
+            <label for="inputnumero" class="form-label">Número</label><br>
+            <input type="text" name="numero" id="inputnumero" class="form-control validationtext"
+              aria-describedby="validationServer04Feedback" required>
+            <div id="validationServer04Feedback" class="invalid-feedback">
+              Ingrese un número
+            </div>
           </div>
           <div class="col-5">
-            <label for="esquina" class="form-label">Esquina</label><br>
-            <input type="text" name="esquina" id="inputcalle" class="form-control">
+            <label for="inputesquina" class="form-label">Esquina</label><br>
+            <input type="text" name="esquina" id="inputesquina" class="form-control validationtext"
+              aria-describedby="validationServer05Feedback" required>
+            <div id="validationServer05Feedback" class="invalid-feedback">
+              Ingrese una esquina
+            </div>
           </div>
-        </form>
-      </div>
-      <hr>
+        </div>
+
+
+        <hr>
+
+        <div>
+          <h3>Costo</h3>
+          <div class="list-group row">
+            <div class="list-group-item">
+              <div class="d-flex">
+                <p class="col">Subtotal<br>Costo unitario del producto por cantidad</p>
+                <p class="float-end" id="subtotalgeneral"></p>
+              </div>
+            </div>
+            <div class="list-group-item">
+              <div class="d-flex">
+                <p class="col">Costo de envío<br>Según el tipo de envío</p>
+                <p class="float-end" id="costodeenvio">USD -</p>
+              </div>
+            </div>
+            <div class="list-group-item">
+              <div class="d-flex">
+                <p class="col">Total ($)</p>
+                <strong class="float-end" id="totalgeneral">USD</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div>
+          <div>
+            <h3>Forma de pago</h3>
+            <div class="d-flex">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#pagoModal">Seleccionar</button>
+              <p id="pagoseleccionado" class="m-2">No ha seleccionado</p>
+            </div>
+            <div id="validationFormaPagoFeedback" class="text-danger visually-hidden">Debes seleccionar una forma de
+              pago</div>
+          </div>
+
+          <div class="modal fade" id="pagoModal" tabindex="-1" aria-labelledby="pagoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="pagoModalLabel">Forma de pago</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="formtarjetacredito">
+                  <form action="">
+                    <input type="radio" name="metodo" id="tarjetacredito" class="form-check-input pago" value="tarjeta"
+                      data-name="Tarjeta de crédito" onclick="seleccionarFormaDePago()" required>
+                    <label class="form-check-label">Tarjeta de crédito</label>
+                    <hr>
+                    <div class="row row-cols-lg-2 g-3 align-items-center">
+                      <div class="col-5">
+                        <label for="inputtarjeta" class="form-label">Número de tarjeta</label><br>
+                        <input type="text" name="tarjeta" id="inputtarjeta" class="form-control campospago tarjeta"
+                          required disabled>
+                      </div>
+                      <div class="col-4">
+                        <label for="inputcodigo" class="form-label">Código de seg.</label><br>
+                        <input type="text" name="codigo" id="inputcodigo" class="form-control campospago tarjeta"
+                          required disabled>
+                      </div>
+                      <div class="col-5">
+                        <label for="inputvencimiento" class="form-label">Vencimiento (MM/AA)</label><br>
+                        <input type="text" name="vencimiento" id="inputvencimiento"
+                          class="form-control campospago tarjeta" required disabled>
+                      </div>
+                    </div><br>
+                    <input type="radio" name="metodo" id="transferencia" class="form-check-input pago"
+                      value="transferencia" data-name="Transferencia bancaria" onclick="seleccionarFormaDePago()"
+                      required>
+                    <label class="form-check-label">Transferencia bancaria</label>
+                    <hr>
+                    <div class="row row-cols-lg-2 g-3 align-items-center">
+                      <div class="col-5">
+                        <label for="inputcuenta" class="form-label">Número de la cuenta</label><br>
+                        <input type="text" name="cuenta" id="inputcuenta" class="form-control campospago transferencia"
+                          required disabled>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    id="cerrarpago">Cerrar</button>
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="guardarpago">Guardar
+                    cambios</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <button type="submit" class="btn btn-primary w-50 mx-auto" id="btnfinalizarcompra">Finalizar compra</button>
+        </div>
+      </form>
     </div>
   </main>
   <footer class="text-muted">

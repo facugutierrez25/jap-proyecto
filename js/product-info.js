@@ -26,12 +26,16 @@ document.addEventListener("DOMContentLoaded", function (e) {
             let htmlContentToAppend = "";
 
             document.getElementById("btncomprar").addEventListener("click", function (e) {
-                let prodInfoCart = [imagenes[0], resultObj.data.name, resultObj.data.currency, resultObj.data.cost];
                 let arrayProdCart = JSON.parse(localStorage.getItem("arrayProdCart"));
-                arrayProdCart.push(prodInfoCart);
-                let infoCartJSON = JSON.stringify(arrayProdCart);
-                localStorage.setItem("arrayProdCart", infoCartJSON);
-                console.log(localStorage.getItem("arrayProdCart"))
+                let prodInfo = { id: resultObj.data.id, img: imagenes[0], name: resultObj.data.name, currency: resultObj.data.currency, cost: resultObj.data.cost }
+                arrayProdCart.push(prodInfo);
+                localStorage.setItem("arrayProdCart", JSON.stringify(arrayProdCart));
+                document.getElementById("comprasuccess").innerHTML = `
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Producto agregado a <a href="cart.html" class="alert-link">Mi carrito</a> con éxito
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                `
             })
 
             for (let img of imagenes) {
@@ -78,7 +82,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 let estrellaChecked = `<span class="fa fa-star checked"></span>`;
                 let estrellaNoChecked = `<span class="fa fa-star"></span>`;
                 let rate = estrellaChecked.repeat(comment.score) + estrellaNoChecked.repeat(5 - comment.score);
-                console.log(comment);
                 htmlContentToAppend += `
                 <div class="list-group-item">
                     <div class="row">

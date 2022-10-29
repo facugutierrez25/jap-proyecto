@@ -8,45 +8,45 @@ const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
 const EXT_TYPE = ".json";
 
 
-let showSpinner = function(){
+let showSpinner = function () {
   document.getElementById("spinner-wrapper").style.display = "block";
 }
 
-let hideSpinner = function(){
+let hideSpinner = function () {
   document.getElementById("spinner-wrapper").style.display = "none";
 }
 
-let getJSONData = function(url){
-    let result = {};
-    showSpinner();
-    return fetch(url)
+let getJSONData = function (url) {
+  let result = {};
+  showSpinner();
+  return fetch(url)
     .then(response => {
       if (response.ok) {
         return response.json();
-      }else{
+      } else {
         throw Error(response.statusText);
       }
     })
-    .then(function(response) {
-          result.status = 'ok';
-          result.data = response;
-          hideSpinner();
-          return result;
+    .then(function (response) {
+      result.status = 'ok';
+      result.data = response;
+      hideSpinner();
+      return result;
     })
-    .catch(function(error) {
-        result.status = 'error';
-        result.data = error;
-        hideSpinner();
-        return result;
+    .catch(function (error) {
+      result.status = 'error';
+      result.data = error;
+      hideSpinner();
+      return result;
     });
 }
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function () {
   if ((localStorage.getItem("username") === null) || (localStorage.getItem("username") === undefined)) {
     window.location.assign("login.html");
   } else {
     console.log(localStorage.getItem("username"));
-    document.getElementById("username-container").innerHTML =`
+    document.getElementById("username-container").innerHTML = `
     <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         ${localStorage.getItem("username")}
@@ -60,10 +60,11 @@ document.addEventListener("DOMContentLoaded", function(){
     `;
   }
 
-  document.getElementById("cerrarsesion").addEventListener("click", function(){
+  document.getElementById("cerrarsesion").addEventListener("click", function () {
     localStorage.removeItem("username");
+    localStorage.removeItem("arrayProdCart");
   });
-  
+
 });
 
 

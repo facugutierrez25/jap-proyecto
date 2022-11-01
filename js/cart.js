@@ -98,6 +98,17 @@ function sumarEnvio() {
     sumarTotal()
 }
 
+function sumarTotal() {
+    let subtotalGenral = document.getElementById("subtotalgeneral").textContent.slice(4);
+    let costoEnvio = document.getElementById("costodeenvio").textContent.slice(4);
+    if (costoEnvio === "-") {
+        document.getElementById("totalgeneral").innerHTML = `USD -`
+    } else {
+        document.getElementById("totalgeneral").innerHTML = `USD ${parseInt(subtotalGenral) + parseInt(costoEnvio)}`
+    }
+
+}
+
 function seleccionarFormaDePago() {
     let inputsPago = document.getElementsByClassName("pago");
     for (let i = 0; i < inputsPago.length; i++) {
@@ -114,17 +125,6 @@ function seleccionarFormaDePago() {
             }
         }
     }
-}
-
-function sumarTotal() {
-    let subtotalGenral = document.getElementById("subtotalgeneral").textContent.slice(4);
-    let costoEnvio = document.getElementById("costodeenvio").textContent.slice(4);
-    if (costoEnvio === "-") {
-        document.getElementById("totalgeneral").innerHTML = `USD -`
-    } else {
-        document.getElementById("totalgeneral").innerHTML = `USD ${parseInt(subtotalGenral) + parseInt(costoEnvio)}`
-    }
-
 }
 
 function validarTextos() {

@@ -23,6 +23,3 @@ function setUsername() {
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("form-login").addEventListener('submit', validForm);
 });
-
-let arrayProdCart = [];
-localStorage.setItem("arrayProdCart", JSON.stringify(arrayProdCart));

@@ -51,10 +51,68 @@
     </div>
   </nav>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+    <div class="container col-8">
+      <div id="liveAlertPlaceholder"></div>
+      <div class="text p-4">
+        <div class="float-end">
+          <img src="" id="img-profile" width="80" style="border: 2px solid gray; border-radius: 8px; padding: 1px">
+        </div>
+        <h1>Perfil</h1>
       </div>
+      <hr>
+      <form class="container" id="form-datos" novalidate>
+        <div class="row justify-content-center">
+          <div class="col-6">
+            <label for="input-primer-nombre" class="form-label">Primer nombre (*)</label><br>
+            <input type="text" name="primer-nombre" id="input-primer-nombre" class="form-control validationtext"
+              aria-describedby="validation-primer-nombre" required>
+            <div id="validation-primer-nombre" class="invalid-feedback">
+              Ingrese un nombre
+            </div>
+          </div>
+          <div class="col-6">
+            <label for="input-segundo-nombre" class="form-label">Segundo nombre</label><br>
+            <input type="text" name="segundo-nombre" id="input-segundo-nombre" class="form-control validationtext"
+              aria-describedby="validation-segundo-nombre">
+          </div>
+          <div class="w-100"></div>
+          <div class="col-6">
+            <label for="input-primer-apellido" class="form-label mt-3">Primer apellido (*)</label><br>
+            <input type="text" name="primer-apellido" id="input-primer-apellido" class="form-control validationtext"
+              aria-describedby="validation-primer-apellido" required>
+            <div id="validation-primer-apellido" class="invalid-feedback">
+              Ingrese un apellido
+            </div>
+          </div>
+          <div class="col-6">
+            <label for="input-segundo-apellido" class="form-label mt-3">Segundo apellido</label><br>
+            <input type="text" name="segundo-apellido" id="input-segundo-apellido" class="form-control validationtext"
+              aria-describedby="validation-segundo-apellido">
+          </div>
+          <div class="w-100"></div>
+          <div class="col-6">
+            <label for="input-email" class="form-label mt-3">Email</label><br>
+            <input type="text" name="email" id="input-email" class="form-control validationtext"
+              aria-describedby="validation-email" disabled>
+          </div>
+          <div class="col-6">
+            <label for="input-foto" class="form-label mt-3">Imágen de perfil</label><br>
+            <input type="file" id="input-foto">
+          </div>
+          <div class="w-100"></div>
+          <div class="col-6">
+            <label for="input-telefono" class="form-label mt-3">Teléfono de contacto (*)</label><br>
+            <input type="text" name="telefono" id="input-telefono" class="form-control validationtext"
+              aria-describedby="validation-telefono" required>
+            <div id="validation-telefono" class="invalid-feedback">
+              Ingrese un número de teléfono
+            </div>
+          </div>
+          <div class="col-6"></div>
+        </div><br>
+        <hr>
+        <button type="submit" class="btn btn-primary" id="btn-guardar-cambios">Guardar cambios</button>
+      </form>
     </div>
   </main>
   <footer class="text-muted">

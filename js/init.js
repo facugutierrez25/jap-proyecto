@@ -41,6 +41,33 @@ let getJSONData = function (url) {
     });
 }
 
+function validarTextos() {
+  let indicadorTexto = true
+  let inputsTexto = document.getElementsByClassName("validationtext");
+  for (let input of inputsTexto) {
+      if (input.checkValidity()) {
+          indicadorTexto = true
+      } else {
+          indicadorTexto = false;
+      }
+  }
+  return indicadorTexto;
+}
+
+const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+
+const alert = (message, type) => {
+  const wrapper = document.createElement('div')
+  wrapper.innerHTML = [
+      `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+      `   <div>${message}</div>`,
+      '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+      '</div>'
+  ].join('')
+
+  alertPlaceholder.append(wrapper)
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   if ((localStorage.getItem("username") === null) || (localStorage.getItem("username") === undefined)) {
     window.location.assign("login.html");
@@ -60,9 +87,21 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
   }
 
+  if (localStorage.getItem("arrayProdCart") === null) {
+    let arrayProdCart = [];
+    localStorage.setItem("arrayProdCart", JSON.stringify(arrayProdCart));
+  }
+
   document.getElementById("cerrarsesion").addEventListener("click", function () {
     localStorage.removeItem("username");
     localStorage.removeItem("arrayProdCart");
+    localStorage.removeItem("userNombre1");
+    localStorage.removeItem("userNombre2");
+    localStorage.removeItem("userApellido1");
+    localStorage.removeItem("userApellido2");
+    localStorage.removeItem("userTelefono");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userImg");
   });
 
 });
